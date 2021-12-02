@@ -7,10 +7,10 @@ python --version
   # Python 3.8.11
 ```
 
-## Convert
+## Convert to markdown
 
-*Markdown*
+*docs*
 
 ```sh
-python collection-to-markdown.py -f <postman-collection-file-path>
+python markdown-docs.py -f <postman-collection-file-path>
 ```

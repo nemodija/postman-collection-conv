@@ -70,7 +70,6 @@ def get_option():
 def main():
   args = get_option()
   postman = Postman(args.file)
-  #postman.convert()
   print('\n'.join(postman.convert()))
 
 if __name__ == "__main__":
