@@ -7,7 +7,6 @@ class Postman:
   def __init__(self, file_path):
     with open(file_path, 'r') as f:
       self.collection = json.loads(f.read())
-      self.sub_heading_layer = 1
 
   def convert(self):
     ret = []
