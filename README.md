@@ -14,3 +14,9 @@ python --version
 ```sh
 python markdown-docs.py -f <postman-collection-file-path>
 ```
+
+*request-table*
+
+```sh
+python markdown-request-table.py -f <postman-collection-file-path>
+```
