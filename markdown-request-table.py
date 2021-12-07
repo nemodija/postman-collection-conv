@@ -4,10 +4,19 @@ import json
 from argparse import ArgumentParser
 
 class Postman:
-  def __init__(self, file_path):
-    with open(file_path, 'r') as f:
-      self.collection = json.loads(f.read())
-      self.case_layer_level = 6
+  def __init__(self, collection_path, environment_path = None):
+    if environment_path:
+      with open(environment_path, 'r') as f:
+        self.environment = json.loads(f.read())
+
+    with open(collection_path, 'r') as f:
+      collection_str = f.read()
+      if hasattr(self, 'environment'):
+        for param in list(filter(lambda x: x.get('enabled'), self.environment.get('values'))):
+          collection_str = collection_str.replace('{{{{{}}}}}'.format(param.get('key')), param.get('value'))
+      self.collection = json.loads(collection_str)
+
+    self.case_layer_level = 6
 
   def convert(self):
     ret = []
@@ -55,12 +64,13 @@ class Postman:
 
 def get_option():
   argparser = ArgumentParser()
-  argparser.add_argument('-f', '--file', required=True)
+  argparser.add_argument('-c', '--collection', required=True)
+  argparser.add_argument('-e', '--environment')
   return argparser.parse_args()
 
 def main():
   args = get_option()
-  postman = Postman(args.file)
+  postman = Postman(args.collection, args.environment)
   print('\n'.join(postman.convert()))
 
 if __name__ == "__main__":

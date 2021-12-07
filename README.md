@@ -9,14 +9,28 @@ python --version
 
 ## Convert to markdown
 
-*docs*
+### docs
+
+**Arguments**
+
+|Argument|Description|require|
+|--|--|--|
+|-c / --collection|Postman Collection file Path.|True|
+|-e / --environment|Postman Environment file Paht.|-|
 
 ```sh
-python markdown-docs.py -f <postman-collection-file-path>
+python markdown-docs.py -c <postman-collection-file-path>
 ```
 
-*request-table*
+### request-table
+
+**Arguments**
+
+|Argument|Description|require|
+|--|--|--|
+|-c / --collection|Postman Collection file Path.|True|
+|-e / --environment|Postman Environment file Paht.|-|
 
 ```sh
-python markdown-request-table.py -f <postman-collection-file-path>
+python markdown-request-table.py -c <postman-collection-file-path>
 ```
