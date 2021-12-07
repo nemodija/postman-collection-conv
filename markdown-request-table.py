@@ -59,7 +59,7 @@ class Postman:
       ret.append('|Case{}Url|'.format('|' * self.case_layer_level))
       ret.append('|{}--|'.format('--|' * self.case_layer_level))
       for table in table_list:
-        ret.append('|{}|'.format('|'.join(table)))
+        ret.append('|{} |'.format('|'.join(table)))
     return ret
 
 def get_option():
