@@ -19,6 +19,7 @@ class Postman:
   def convert(self):
     ret = []
     ret.append('{} {}'.format('#' * 1, self.collection.get('info').get('name')))
+    ret.append('')
 
     ret.extend(self.items(self.collection.get('item'), 1))
 
