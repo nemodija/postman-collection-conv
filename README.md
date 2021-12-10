@@ -22,7 +22,7 @@ python --version
 python markdown-docs.py -c <postman-collection-file-path>
 ```
 
-### request-table
+### requests
 
 **Arguments**
 
@@ -32,5 +32,5 @@ python markdown-docs.py -c <postman-collection-file-path>
 |-e / --environment|Postman Environment file Paht.|-|
 
 ```sh
-python markdown-request-table.py -c <postman-collection-file-path>
+python markdown-requests.py -c <postman-collection-file-path>
 ```
