@@ -4,12 +4,18 @@
 
 ```sh
 python --version
-  # Python 3.8.11
+  # Python 3.8.12
+```
+
+## Install
+
+```
+pip install git+https://github.com/ot-nemoto/postman-collection-conv.git
 ```
 
 ## Convert to markdown
 
-### docs
+### markdown-docs-gen
 
 **Arguments**
 
@@ -19,10 +25,10 @@ python --version
 |-e / --environment|Postman Environment file Paht.|-|
 
 ```sh
-python markdown-docs.py -c <postman-collection-file-path>
+markdown-docs-gen -c <postman-collection-file-path>
 ```
 
-### requests
+### markdown-requests-gen
 
 **Arguments**
 
@@ -32,5 +38,5 @@ python markdown-docs.py -c <postman-collection-file-path>
 |-e / --environment|Postman Environment file Paht.|-|
 
 ```sh
-python markdown-requests.py -c <postman-collection-file-path>
+markdown-requests-gen -c <postman-collection-file-path>
 ```
