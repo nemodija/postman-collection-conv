@@ -38,6 +38,7 @@ class Postman:
 
         ret.extend(self.request_headers(item.get('request').get('header', [])))
         ret.extend(self.query_params(item.get('request').get('url').get('query', [])))
+        ret.extend(self.request_body(item.get('request').get('body')))
 
       else:
         ret.append('{} {}'.format('#' * heading_level, item.get('name')))
@@ -68,6 +69,18 @@ class Postman:
       for v in filter(lambda x: 'disabled' not in x, query_params):
         ret.append('|{}|{}|{}|'.format(v.get('key', ''),v.get('value', ''),v.get('description', '')))
       ret.append('')
+    return ret
+
+  def request_body(self, request_body):
+    ret = []
+    if request_body and request_body.get('mode') == 'raw' and request_body.get('options').get('raw').get('language') == 'json':
+      ret.append('**Request Body**')
+      ret.append('')
+      ret.append('```')
+      ret.extend(json.dumps(json.loads(request_body.get('raw')), indent=2).split('\n'))
+      ret.append('```')
+      ret.append('')
+      #print(json.dumps(json.loads(request_body.get('raw')), indent=2))
     return ret
 
 def get_option():
