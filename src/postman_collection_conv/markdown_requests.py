@@ -25,41 +25,40 @@ class Postman:
 
     ret.extend(
       self.make_table_markdown(
-        self.make_table_list(
-          self.items(self.collection.get('item')))))
+        self.requests(self.collection.get('item'))))
 
     return ret
 
-  def items(self, items):
-    ret = {}
+  def requests(self, items, name = None):
+    ret = []
     for item in items:
       if ('request' in item):
-        ret[item.get('name')] = item.get('request').get('url').get('raw')
+        request_body = item.get('request').get('body')
+        json_str = json.dumps(json.loads(request_body.get('raw'))) if \
+          request_body and \
+          request_body.get('mode') == 'raw' and \
+          request_body.get('options').get('raw').get('language') == 'json' else ''
+        ret.append([
+          name,
+          item.get('request').get('url').get('raw'),
+          json_str
+        ])
 
       else:
-        ret[item.get('name')] = self.items(item.get('item', []))
+        ret.extend(self.requests(
+          item.get('item', []),
+          item.get('name') if name is None else '{} / {}'.format(name, item.get('name'))
+        ))
 
-    return ret
-
-  def make_table_list(self, d, columns = []):
-    ret = []
-    for k, v in d.items():
-      if type(v) is dict:
-        ret.extend(self.make_table_list(v, columns + [k]))
-      else:
-        tmp_col = columns + [k]
-        [tmp_col.extend(['']) for i in range(self.case_layer_level - len(tmp_col))]
-        tmp_col.extend([v])
-        ret.append(tmp_col)
     return ret
 
   def make_table_markdown(self, table_list):
     ret = []
     if table_list:
-      ret.append('|Case{}Url|'.format('|' * self.case_layer_level))
-      ret.append('|{}--|'.format('--|' * self.case_layer_level))
-      for table in table_list:
-        ret.append('|{} |'.format('|'.join(table)))
+      ret.append('|Case|Url|Body|')
+      ret.append('|--|--|--|')
+      for name, url, body in table_list:
+        ret.append('|{}|{}|{}|'.format(name, url, body))
     return ret
 
 def get_option():
