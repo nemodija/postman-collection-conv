@@ -39,7 +39,7 @@ class Postman:
           request_body.get('mode') == 'raw' and \
           request_body.get('options').get('raw').get('language') == 'json' else ''
         ret.append([
-          name,
+          '{} / {}'.format(name, item.get('name')),
           item.get('request').get('url').get('raw'),
           json_str
         ])
