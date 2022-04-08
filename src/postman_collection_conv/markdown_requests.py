@@ -40,6 +40,7 @@ class Postman:
           request_body.get('options').get('raw').get('language') == 'json' else ''
         ret.append([
           '{} / {}'.format(name, item.get('name')),
+          '`{}`'.format(item.get('request').get('method')),
           item.get('request').get('url').get('raw'),
           json_str
         ])
@@ -55,10 +56,10 @@ class Postman:
   def make_table_markdown(self, table_list):
     ret = []
     if table_list:
-      ret.append('|Case|Url|Body|')
-      ret.append('|--|--|--|')
-      for name, url, body in table_list:
-        ret.append('|{}|{}|{}|'.format(name, url, body))
+      ret.append('|Case|Method|Url|Body|')
+      ret.append('|--|--|--|--|')
+      for name, method, url, body in table_list:
+        ret.append('|{}|{}|{}|{}|'.format(name, method, url, body))
     return ret
 
 def get_option():
