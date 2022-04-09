@@ -39,6 +39,7 @@ class Postman:
         ret.extend(self.request_headers(item.get('request').get('header', [])))
         ret.extend(self.query_params(item.get('request').get('url').get('query', [])))
         ret.extend(self.request_body(item.get('request').get('body')))
+        ret.extend(self.test_script(item.get('event', [])))
 
       else:
         ret.append('{} {}'.format('#' * heading_level, item.get('name')))
@@ -80,7 +81,18 @@ class Postman:
       ret.extend(json.dumps(json.loads(request_body.get('raw')), indent=2).split('\n'))
       ret.append('```')
       ret.append('')
-      #print(json.dumps(json.loads(request_body.get('raw')), indent=2))
+    return ret
+
+  def test_script(self, events):
+    ret = []
+    for event in list(filter(lambda x: x.get('script', {}) != {}, events)):
+      if len(event.get('script').get('exec', [])) > 0:
+        ret.append('**Test Script**')
+        ret.append('')
+        ret.append('```')
+        ret.extend(event.get('script').get('exec', []))
+        ret.append('```')
+        ret.append('')
     return ret
 
 def get_option():
